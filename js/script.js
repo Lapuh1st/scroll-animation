@@ -10,9 +10,6 @@
 // wow.init();
 
 $(document).ready(function(){
-	// var a = $('.sectionCompany-title');
-	// var b = $('.test');
-	// var $c = $('.sectionHistory-item');
 	makeAnimations();
 
 	$( window ).resize(function(){
