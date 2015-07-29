@@ -1,14 +1,3 @@
-// var wow = new WOW(
-//     {
-//       boxClass:     'wow',      // default
-//       animateClass: 'animated', // default
-//       offset:       100,          // default
-//       mobile:       true,       // default
-//       live:         true        // default
-//     }
-//   )
-// wow.init();
-
 $(document).ready(function(){
 	makeAnimations();
 
@@ -20,28 +9,64 @@ $(document).ready(function(){
 		var titlePosition = $('.sectionCompany-title').offset().top;
 
 		$( window ).scroll(function() {
-			$('.js-slide-left').each(function(){
+			$('.js-hidden').each(function(){
+				var elementPosition = $(this).offset().top;
+				var topOfWindow = $(window).scrollTop();
+				
+				if (elementPosition < topOfWindow+800) {
+					$(this).addClass("js-show-hidden");
+					$(this).removeClass("js-hidden");
+				}
+			});
+			$('.js-hidden-line').each(function(){
 				var elementPosition = $(this).offset().top;
 				var topOfWindow = $(window).scrollTop();
 
-				if (elementPosition < topOfWindow+400) {
-					$(this).addClass("slideLeft");
+				if (elementPosition < topOfWindow+800) {
+					$(this).addClass("js-show-hidden-line");
+				}
+			});
+			$('.upperLine').each(function(){
+				var elementPosition = $(this).offset().top;
+				var topOfWindow = $(window).scrollTop();
+
+				if (elementPosition < topOfWindow+800) {
+					var self = $(this);
+					$(this).addClass("js-upperLine");
+						
+					if(self.hasClass('js-first-circles')){	
+						setTimeout(function(){
+							self.next().next().addClass("js-show-circle");
+							setTimeout(function(){
+								self.next().next().addClass("js-after");
+							}, 450);
+							setTimeout(function(){
+								self.next().addClass("js-show-circle");
+								setTimeout(function(){
+									self.next().addClass("js-after");
+								}, 600);
+							}, 600);
+						}, 450);
+					} else{
+						setTimeout(function(){
+							self.next().addClass("js-show-circle");
+							setTimeout(function(){
+								self.next().addClass("js-after");
+							}, 450);
+							setTimeout(function(){
+								self.next().next().addClass("js-show-circle");
+								setTimeout(function(){
+									self.next().next().addClass("js-after");
+									setTimeout(function(){
+										$('.sectionCompany-clients').addClass('js-after');
+									}, 1400);
+								}, 600);
+							}, 600);
+						}, 450);
+					}
+
 				}
 			});
 		});	
 	};
-	
-
-	// prototype script
-
-	// $(window).scroll(function() {
-	// 	$('#animatedElement').each(function(){
-	// 	var imagePos = $(this).offset().top;
-
-	// 	var topOfWindow = $(window).scrollTop();
-	// 		if (imagePos < topOfWindow+400) {
-	// 			$(this).addClass("slideUp");
-	// 		}
-	// 	});
-	// });
 });
